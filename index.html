@@ -302,10 +302,10 @@ p{text-wrap:pretty}
         <h3 style="font-size:clamp(26px,3.4vw,40px);letter-spacing:-.01em">Let's connect.</h3>
         <p style="color:#9A9A96;font-size:15px;margin-top:10px;max-width:420px">I'm a student, not an engineer yet. If you want to talk about any of this, whether it's F1, building things or one of my projects, here's where to find me.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:min(280px,100%)">
-        <a href="https://github.com/malek-pixel" target="_blank" rel="noopener" data-cursor="OPEN ↗" style="display:flex;justify-content:space-between;align-items:center;border:1px solid #292B2D;border-radius:6px;padding:15px 18px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#161719"><span>GITHUB</span><span style="color:#9A9A96">github.com/malek-pixel ↗</span></a>
-        <a href="mailto:malekelkattan2020@gmail.com" data-cursor="OPEN ↗" style="display:flex;justify-content:space-between;align-items:center;border:1px solid #292B2D;border-radius:6px;padding:15px 18px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#161719"><span>EMAIL</span><span style="color:#9A9A96">malekelkattan2020@gmail.com ↗</span></a>
-        <a href="https://www.linkedin.com/in/malek-fahmy-eng/" target="_blank" rel="noopener" data-cursor="OPEN ↗" style="display:flex;justify-content:space-between;align-items:center;border:1px solid #292B2D;border-radius:6px;padding:15px 18px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#161719"><span>LINKEDIN</span><span style="color:#9A9A96">in/malek-fahmy-eng ↗</span></a>
+      <div style="display:flex;flex-direction:column;gap:10px;flex:0 1 460px;min-width:min(380px,100%)">
+        <a href="https://github.com/malek-pixel" target="_blank" rel="noopener" data-cursor="OPEN ↗" style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border:1px solid #292B2D;border-radius:6px;padding:16px 20px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#161719"><span>GITHUB</span><span style="color:#9A9A96;letter-spacing:.02em;text-transform:none;overflow-wrap:anywhere">github.com/malek-pixel ↗</span></a>
+        <a href="mailto:malekelkattan2020@gmail.com" data-cursor="OPEN ↗" style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border:1px solid #292B2D;border-radius:6px;padding:16px 20px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#161719"><span>EMAIL</span><span style="color:#9A9A96;letter-spacing:.02em;text-transform:none;overflow-wrap:anywhere">malekelkattan2020@gmail.com ↗</span></a>
+        <a href="https://www.linkedin.com/in/malek-fahmy-eng/" target="_blank" rel="noopener" data-cursor="OPEN ↗" style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border:1px solid #292B2D;border-radius:6px;padding:16px 20px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#161719"><span>LINKEDIN</span><span style="color:#9A9A96;letter-spacing:.02em;text-transform:none;overflow-wrap:anywhere">in/malek-fahmy-eng ↗</span></a>
       </div>
     </div>
   </div>
@@ -458,7 +458,7 @@ class Component extends DCLogic {
   }
 
   reduced(){return typeof window!=='undefined'&&window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches}
-  fine(){return typeof window!=='undefined'&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches}
+  fine(){return false&&typeof window!=='undefined'&&window.matchMedia&&window.matchMedia('(pointer:fine)').matches}
   scrollTop(behavior){try{window.scrollTo({top:0,behavior:this.reduced()?'auto':(behavior||'auto')})}catch(e){window.scrollTo(0,0)}}
   goTo(id){const el=document.getElementById(id);if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-64;try{window.scrollTo({top:y,behavior:this.reduced()?'auto':'smooth'})}catch(e){window.scrollTo(0,y)}}
 
