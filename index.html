@@ -253,7 +253,7 @@ p{text-wrap:pretty}
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px">
       <sc-for list="{{ labs }}" as="m" hint-placeholder-count="4">
-        <button onClick="{{ m.onToggle }}" aria-expanded="{{ m.active }}" data-cursor="EXPLORE" style="text-align:left;background:#161719;border:1px solid #292B2D;border-radius:8px;padding:26px 22px;transition:all .4s cubic-bezier(.2,.8,.2,1);{{ m.style }}" style-hover="border-color:#3a3c3e">
+        <button onClick="{{ m.onToggle }}" aria-expanded="{{ m.active }}" data-cursor="EXPLORE" style="text-align:left;color:#F1EEE7;width:100%;background:#161719;border:1px solid #292B2D;border-radius:8px;padding:26px 22px;transition:all .4s cubic-bezier(.2,.8,.2,1);{{ m.style }}" style-hover="border-color:#3a3c3e">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><span style="display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:{{ m.accent }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:{{ m.accent }};"><path d="{{ m.icon }}"/></svg>{{ m.tag }}</span><span style="color:#9A9A96;font-size:18px">{{ m.sign }}</span></div>
           <h3 style="font-size:22px;margin-bottom:10px">{{ m.title }}</h3>
           <p style="color:#9A9A96;font-size:14px;line-height:1.6;margin:0">{{ m.short }}</p>
