@@ -48,6 +48,9 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;margin:0;text
 p{text-wrap:pretty}
 @keyframes revUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes certIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes certOut{to{opacity:0;transform:scale(.98)}}
 @keyframes drawL{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes nodePop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
 @keyframes pulseR{0%,100%{opacity:.15;transform:scale(1)}50%{opacity:.5;transform:scale(1.25)}}
@@ -75,6 +78,7 @@ p{text-wrap:pretty}
       <button data-navlink="work" onClick="{{ goWork }}" style="position:relative;background:none;border:none;color:#9A9A96;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;padding:8px 14px;transition:color .2s" style-hover="color:#F1EEE7">WORK<span data-ink style="position:absolute;left:14px;right:14px;bottom:2px;height:1.5px;background:#C87545;transform:scaleX(0);transform-origin:left;transition:transform .3s"></span></button>
       <button data-navlink="journey" onClick="{{ goJourney }}" style="position:relative;background:none;border:none;color:#9A9A96;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;padding:8px 14px;transition:color .2s" style-hover="color:#F1EEE7">JOURNEY<span data-ink style="position:absolute;left:14px;right:14px;bottom:2px;height:1.5px;background:#C87545;transform:scaleX(0);transform-origin:left;transition:transform .3s"></span></button>
       <button data-navlink="lab" onClick="{{ goLab }}" style="position:relative;background:none;border:none;color:#9A9A96;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;padding:8px 14px;transition:color .2s" style-hover="color:#F1EEE7">LAB<span data-ink style="position:absolute;left:14px;right:14px;bottom:2px;height:1.5px;background:#C87545;transform:scaleX(0);transform-origin:left;transition:transform .3s"></span></button>
+      <button data-navlink="credentials" onClick="{{ goAcademics }}" style="position:relative;background:none;border:none;color:#9A9A96;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;padding:8px 14px;transition:color .2s" style-hover="color:#F1EEE7">ACADEMICS<span data-ink style="position:absolute;left:14px;right:14px;bottom:2px;height:1.5px;background:#C87545;transform:scaleX(0);transform-origin:left;transition:transform .3s"></span></button>
       <button data-navlink="next" onClick="{{ goNext }}" style="position:relative;background:none;border:none;color:#9A9A96;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;padding:8px 14px;transition:color .2s" style-hover="color:#F1EEE7">NEXT<span data-ink style="position:absolute;left:14px;right:14px;bottom:2px;height:1.5px;background:#C87545;transform:scaleX(0);transform-origin:left;transition:transform .3s"></span></button>
     </div>
   </sc-if>
@@ -88,6 +92,7 @@ p{text-wrap:pretty}
     <span data-rail="work" style="width:7px;height:7px;border-radius:50%;border:1px solid #4a4c4e;transition:all .3s"></span>
     <span data-rail="journey" style="width:7px;height:7px;border-radius:50%;border:1px solid #4a4c4e;transition:all .3s"></span>
     <span data-rail="lab" style="width:7px;height:7px;border-radius:50%;border:1px solid #4a4c4e;transition:all .3s"></span>
+    <span data-rail="credentials" style="width:7px;height:7px;border-radius:50%;border:1px solid #4a4c4e;transition:all .3s"></span>
     <span data-rail="next" style="width:7px;height:7px;border-radius:50%;border:1px solid #4a4c4e;transition:all .3s"></span>
   </div>
 </sc-if>
@@ -112,6 +117,7 @@ p{text-wrap:pretty}
       <button onClick="{{ goWork }}" style="text-align:left;background:none;border:none;border-bottom:1px solid #1D1F21;color:#F1EEE7;font-family:'Space Grotesk';font-weight:600;font-size:32px;padding:20px 0">Work</button>
       <button onClick="{{ goJourney }}" style="text-align:left;background:none;border:none;border-bottom:1px solid #1D1F21;color:#F1EEE7;font-family:'Space Grotesk';font-weight:600;font-size:32px;padding:20px 0">Journey</button>
       <button onClick="{{ goLab }}" style="text-align:left;background:none;border:none;border-bottom:1px solid #1D1F21;color:#F1EEE7;font-family:'Space Grotesk';font-weight:600;font-size:32px;padding:20px 0">Lab</button>
+      <button onClick="{{ goAcademics }}" style="text-align:left;background:none;border:none;border-bottom:1px solid #1D1F21;color:#F1EEE7;font-family:'Space Grotesk';font-weight:600;font-size:32px;padding:20px 0">Academics</button>
       <button onClick="{{ goNext }}" style="text-align:left;background:none;border:none;color:#F1EEE7;font-family:'Space Grotesk';font-weight:600;font-size:32px;padding:20px 0">Next</button>
     </div>
     <div style="margin-top:auto;padding:24px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#9A9A96">MALEK MOHAMMED FAHMY · CAIRO, EGYPT</div>
@@ -119,11 +125,28 @@ p{text-wrap:pretty}
 </sc-if>
 
 <sc-if value="{{ certView }}" hint-placeholder-val="{{ false }}">
-  <div role="dialog" aria-modal="true" aria-label="{{ lb.label }}" onClick="{{ closeCert }}" style="position:fixed;inset:0;z-index:150;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;background:rgba(6,7,8,.9);backdrop-filter:blur(16px);animation:fadeIn .25s ease">
-    <img src="{{ lb.img }}" alt="{{ lb.alt }}" onClick="{{ stop }}" style="display:block;max-width:min(1100px,100%);max-height:calc(100vh - 140px);width:auto;height:auto;object-fit:contain;border:1px solid #292B2D;border-radius:8px;background:#0D0E0F;animation:nodePop .3s cubic-bezier(.2,.8,.2,1)">
-    <div onClick="{{ stop }}" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 20px;max-width:100%">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9A9A96;overflow-wrap:anywhere;text-align:center">{{ lb.label }}</span>
-      <button ref="{{ certClose }}" onClick="{{ closeCert }}" style="background:none;border:1px solid #292B2D;border-radius:6px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;padding:8px 12px" style-hover="border-color:#C87545">✕ CLOSE</button>
+  <div role="dialog" aria-modal="true" aria-labelledby="cert-title" onClick="{{ closeCert }}" style="position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:rgba(6,7,8,.84);backdrop-filter:blur(16px);animation:{{ lb.backdropAnim }}">
+    <div onClick="{{ stop }}" style="position:relative;width:min(1040px,100%);max-height:calc(100vh - 48px);overflow-y:auto;overscroll-behavior:contain;background:#161719;border:1px solid #292B2D;border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.45);display:flex;flex-wrap:wrap;animation:{{ lb.panelAnim }}">
+      <div style="position:sticky;top:0;z-index:2;flex:1 0 100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px 12px 22px;background:#161719;border-bottom:1px solid #292B2D">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#9A9A96">CERTIFICATION / {{ lb.num }}</span>
+        <button ref="{{ certClose }}" onClick="{{ closeCert }}" aria-label="Close certificate details" style="background:none;border:1px solid #292B2D;border-radius:6px;color:#F1EEE7;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;padding:8px 12px;transition:border-color .2s" style-hover="border-color:#C87545">✕ CLOSE</button>
+      </div>
+      <div style="flex:1 1 520px;min-width:0;display:flex;align-items:center;justify-content:center;padding:22px;background:#0D0E0F">
+        <sc-if value="{{ lb.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ lb.img }}" alt="{{ lb.alt }}" style="display:block;max-width:100%;max-height:min(62vh,560px);width:auto;height:auto;object-fit:contain;border-radius:4px"></sc-if>
+        <sc-if value="{{ lb.noImg }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="width:100%;height:260px;display:flex;align-items:center;justify-content:center;border-radius:4px;background:repeating-linear-gradient(135deg,#C8754510 0 2px,transparent 2px 18px),#1D1F21;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9A9A96">[CERTIFICATE IMAGE]</div></sc-if>
+      </div>
+      <div style="flex:1 1 280px;min-width:0;padding:28px 26px;display:flex;flex-direction:column;gap:20px">
+        <div>
+          <h3 id="cert-title" style="font-size:clamp(26px,3vw,34px);line-height:1.08;letter-spacing:-.01em;overflow-wrap:anywhere">{{ lb.name }}</h3>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#C87545;margin:10px 0 0">{{ lb.issuer }}</p>
+        </div>
+        <dl style="margin:0;display:flex;flex-direction:column;gap:14px;border-top:1px solid #292B2D;padding-top:20px">
+          <sc-if value="{{ lb.hasDate }}" hint-placeholder-val="{{ true }}"><div><dt style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#9A9A96;margin-bottom:6px">COMPLETED</dt><dd style="margin:0;color:#F1EEE7;font-size:15px">{{ lb.date }}</dd></div></sc-if>
+          <sc-if value="{{ lb.hasStatus }}" hint-placeholder-val="{{ true }}"><div><dt style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#9A9A96;margin-bottom:8px">STATUS</dt><dd style="margin:0"><span style="display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#6E9FB5;border:1px solid #6E9FB5;border-radius:100px;padding:3px 10px">{{ lb.status }}</span></dd></div></sc-if>
+        </dl>
+        <sc-if value="{{ lb.hasDesc }}" hint-placeholder-val="{{ true }}"><p style="color:#c9c7c1;font-size:15px;line-height:1.65;margin:0">{{ lb.desc }}</p></sc-if>
+        <sc-if value="{{ lb.hasUrl }}" hint-placeholder-val="{{ false }}"><a href="{{ lb.url }}" target="_blank" rel="noopener" style="margin-top:auto;display:inline-flex;align-items:center;gap:10px;align-self:flex-start;border:1px solid #292B2D;border-radius:5px;padding:12px 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#F1EEE7;transition:border-color .2s,background .2s" style-hover="border-color:#C87545;background:#1D1F21">VERIFY CREDENTIAL <span style="color:#C87545">↗</span></a></sc-if>
+      </div>
     </div>
   </div>
 </sc-if>
@@ -299,7 +322,7 @@ p{text-wrap:pretty}
   </div>
 </section>
 
-<section id="credentials" aria-labelledby="credentials-title" style="position:relative;z-index:1;padding:110px 26px;border-top:1px solid #1D1F21">
+<section id="credentials" data-section="credentials" aria-labelledby="credentials-title" style="position:relative;z-index:1;padding:110px 26px;border-top:1px solid #1D1F21">
   <div style="max-width:1180px;margin:0 auto">
     <div data-reveal style="max-width:640px;margin-bottom:44px">
       <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.26em;color:#C87545;margin:0 0 16px">ACADEMICS &amp; CERTIFICATIONS</p>
@@ -334,27 +357,22 @@ p{text-wrap:pretty}
     <h3 data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.22em;color:#9A9A96;margin:0 0 16px">CERTIFICATIONS</h3>
     <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px">
       <sc-for list="{{ certs }}" as="k" hint-placeholder-count="3">
-        <li data-reveal style="display:flex;flex-direction:column;border:1px solid #292B2D;border-radius:8px;background:#161719;overflow:hidden;transition:border-color .3s,transform .3s" style-hover="border-color:#3a3c3e;transform:translateY(-3px)">
-          <sc-if value="{{ k.hasImg }}" hint-placeholder-val="{{ true }}">
-            <button onClick="{{ k.onView }}" aria-label="{{ k.viewLabel }}" style="display:block;width:100%;padding:14px;background:#0D0E0F;border:none;border-bottom:1px solid #292B2D;cursor:zoom-in"><img src="{{ k.img }}" alt="{{ k.alt }}" loading="lazy" decoding="async" style="display:block;width:100%;height:190px;object-fit:contain;transition:transform .35s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.02)"></button>
-          </sc-if>
-          <sc-if value="{{ k.imgPending }}" hint-placeholder-val="{{ false }}">
-            <div aria-hidden="true" style="height:218px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #292B2D;background:repeating-linear-gradient(135deg,#C8754510 0 2px,transparent 2px 18px),#1D1F21;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9A9A96">[CERTIFICATE IMAGE]</div>
-          </sc-if>
-          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;flex:1">
-            <sc-if value="{{ k.hasMeta }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#9A9A96">{{ k.date }}</span>
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#6E9FB5;border:1px solid #6E9FB5;border-radius:100px;padding:3px 10px;{{ k.statusStyle }}">{{ k.status }}</span>
-            </div></sc-if>
-            <div>
-              <h4 style="font-size:20px;line-height:1.2;overflow-wrap:anywhere">{{ k.name }}</h4>
-              <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#C87545;margin:8px 0 0">{{ k.issuer }}</p>
-            </div>
-            <sc-if value="{{ k.hasDesc }}" hint-placeholder-val="{{ true }}"><p style="color:#9A9A96;font-size:14px;line-height:1.6;margin:0">{{ k.desc }}</p></sc-if>
-            <sc-if value="{{ k.hasUrl }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ k.url }}" target="_blank" rel="noopener" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#F1EEE7" style-hover="color:#C87545">VERIFY CREDENTIAL <span style="color:#C87545">↗</span></a>
-            </sc-if>
-          </div>
+        <li data-reveal style="display:flex">
+          <button onClick="{{ k.onView }}" aria-haspopup="dialog" aria-label="{{ k.viewLabel }}" style="width:100%;display:flex;flex-direction:column;text-align:left;color:#F1EEE7;padding:0;border:1px solid #292B2D;border-radius:8px;background:#161719;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s" style-hover="border-color:#3a3c3e;transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.35)">
+            <sc-if value="{{ k.hasImg }}" hint-placeholder-val="{{ true }}"><span style="display:block;width:100%;padding:14px;background:#0D0E0F;border-bottom:1px solid #292B2D"><img src="{{ k.img }}" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:190px;object-fit:contain"></span></sc-if>
+            <sc-if value="{{ k.imgPending }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="height:218px;width:100%;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #292B2D;background:repeating-linear-gradient(135deg,#C8754510 0 2px,transparent 2px 18px),#1D1F21;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9A9A96">[CERTIFICATE IMAGE]</span></sc-if>
+            <span style="padding:22px;display:flex;flex-direction:column;gap:12px;flex:1;width:100%">
+              <sc-if value="{{ k.hasMeta }}" hint-placeholder-val="{{ true }}"><span style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#9A9A96">{{ k.date }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#6E9FB5;border:1px solid #6E9FB5;border-radius:100px;padding:3px 10px;{{ k.statusStyle }}">{{ k.status }}</span>
+              </span></sc-if>
+              <span style="display:block">
+                <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;line-height:1.2;overflow-wrap:anywhere">{{ k.name }}</span>
+                <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#C87545;margin-top:8px">{{ k.issuer }}</span>
+              </span>
+              <span style="margin-top:auto;display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#F1EEE7">VIEW CERTIFICATE <span style="color:#C87545">→</span></span>
+            </span>
+          </button>
         </li>
       </sc-for>
     </ul>
@@ -399,6 +417,7 @@ p{text-wrap:pretty}
       <button onClick="{{ goWork }}" style="text-align:left;background:none;border:none;color:#9A9A96;padding:0" style-hover="color:#F1EEE7">WORK</button>
       <button onClick="{{ goJourney }}" style="text-align:left;background:none;border:none;color:#9A9A96;padding:0" style-hover="color:#F1EEE7">JOURNEY</button>
       <button onClick="{{ goLab }}" style="text-align:left;background:none;border:none;color:#9A9A96;padding:0" style-hover="color:#F1EEE7">LAB</button>
+      <button onClick="{{ goAcademics }}" style="text-align:left;background:none;border:none;color:#9A9A96;padding:0" style-hover="color:#F1EEE7">ACADEMICS</button>
       <button onClick="{{ goNext }}" style="text-align:left;background:none;border:none;color:#9A9A96;padding:0" style-hover="color:#F1EEE7">NEXT</button>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em">
@@ -477,7 +496,7 @@ class Component extends DCLogic {
   constructor(props){
     super(props);
     this.rootRef=React.createRef();this.progressRef=React.createRef();this.railRef=React.createRef();this.radialFirst=React.createRef();this.mobileFirst=React.createRef();this.caseHeading=React.createRef();this.certClose=React.createRef();
-    this.state={view:'home',caseId:null,filter:'ALL',navOpen:false,mobileOpen:false,certOpen:null,labActive:0,mobile:(typeof window!=='undefined'&&window.innerWidth<760)};
+    this.state={view:'home',caseId:null,filter:'ALL',navOpen:false,mobileOpen:false,certOpen:null,certClosing:false,labActive:0,mobile:(typeof window!=='undefined'&&window.innerWidth<760)};
 
     this.projects=[
       {id:'life-os',imgs:['img/life-os-achievements.webp'],alts:['Life OS achievements screen showing level 3 progress and unlocked achievements'],icon:'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',num:'001',slug:'life-os',title:'Life OS',cat:'SOFTWARE',tags:['SOFTWARE'],personal:true,tech:['REACT','INDEXEDDB','GROQ'],status:'COMPLETE',accent:'#6E9FB5',pattern:0,live:'',github:'',linkNote:'PRIVATE · PERSONAL SYSTEM, NOT PUBLIC',blurb:"My goals, habits, training, school, projects and money were spread across different apps. So I built one system to hold all of it, one I'd actually want to open every day."},
@@ -513,10 +532,10 @@ class Component extends DCLogic {
       coursework:['MATHEMATICS','COMPUTER SCIENCE'],
       highlights:[]  // add one-line highlights here; [] hides the block
     };
-    // Any field left '' is hidden. img: path like 'img/certs/name.webp'. url: https:// verification link.
+    // Any field left '' is hidden. desc: 1-2 sentences on what it covered. img: 'img/certs/name.webp'. url: https:// verification link.
     this.certs=[
-      {name:'MATLAB Onramp',issuer:'MathWorks',date:'',status:'',desc:'',img:'',alt:'',url:''},
-      {name:'Python',issuer:'Kaggle Learn',date:'',status:'',desc:'',img:'',alt:'',url:''}
+      {name:'MATLAB Onramp',issuer:'MathWorks',date:'7 August 2026',status:'Completed',desc:'An introductory course covering the fundamentals of MATLAB, including the interface, variables, arrays, calculations, and basic programming concepts.',img:'img/certs/matlab-onramp.webp',alt:'MathWorks course completion certificate for MATLAB Onramp, dated 7 August 2026',url:'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=8075e126-67c8-45df-9304-9c61654a152e'},
+      {name:'Python',issuer:'Kaggle Learn',date:'8 August 2026',status:'Completed',desc:'A hands-on introduction to Python covering core programming concepts, data types, functions, conditional logic, and working with data.',img:'img/certs/kaggle-python.webp',alt:'Kaggle certificate of completion for the Python course, dated 8 August 2026',url:'https://www.kaggle.com/learn/certification/malekelkattan/python'}
     ];
     this.offDesk=[
       {tag:'KICKBOXING',icon:'M8 21h8 M12 17v4 M7 4h10v5a5 5 0 0 1-10 0z M7 6H4a3 3 0 0 0 3 4 M17 6h3a3 3 0 0 1-3 4',accent:'#C87545',title:'National champion, 2026',body:'I train kickboxing. In 2026 I won a national championship in the open weight class, where I fought a 21-year-old who weighed 110 kg.'},
@@ -558,6 +577,7 @@ class Component extends DCLogic {
     try{const url='#project/'+id;if(hist==='push')history.pushState({caseId:id,fromHome:true},'',url);else if(hist==='replace')history.replaceState(Object.assign({},history.state,{caseId:id}),'',url);}catch(e){}
     this.setState({view:'case',caseId:id,navOpen:false,mobileOpen:false},()=>{this.scrollTop('auto');if(this.caseHeading.current)this.caseHeading.current.focus({preventScroll:true});});
   }
+  closeCert(){if(this.state.certOpen===null||this.state.certClosing)return;if(this.reduced()){this.setState({certOpen:null});return;}this.setState({certClosing:true});setTimeout(()=>this.setState({certOpen:null,certClosing:false}),170);}
   showHome(){this.setState({view:'home',caseId:null},()=>requestAnimationFrame(()=>this.goTo('work')));}
   closeCase(){
     if(history.state&&history.state.fromHome){history.back();return;}
@@ -571,7 +591,7 @@ class Component extends DCLogic {
     window.addEventListener('resize',this._onResize);
     this._onKey=(e)=>{
       if(!(this.state.navOpen||this.state.mobileOpen||this.state.certOpen!==null))return;
-      if(e.key==='Escape'){this.setState({navOpen:false,mobileOpen:false,certOpen:null});return;}
+      if(e.key==='Escape'){if(this.state.certOpen!==null)this.closeCert();else this.setState({navOpen:false,mobileOpen:false});return;}
       if(e.key!=='Tab')return;
       const dlg=document.querySelector('[role=dialog]');if(!dlg)return;
       const f=[...dlg.querySelectorAll('button,a[href]')];if(!f.length)return;
@@ -618,7 +638,7 @@ class Component extends DCLogic {
     const doc=document.documentElement;const max=doc.scrollHeight-window.innerHeight;const pct=max>0?window.scrollY/max:0;
     if(this.progressRef.current)this.progressRef.current.style.width=(pct*100)+'%';
     if(this.state.view!=='home')return;
-    const ids=['work','journey','lab','next'];let active=null;const mid=window.innerHeight*0.42;
+    const ids=['work','journey','lab','credentials','next'];let active=null;const mid=window.innerHeight*0.42;
     ids.forEach(id=>{const el=document.getElementById(id);if(el){const r=el.getBoundingClientRect();if(r.top<=mid&&r.bottom>=mid)active=id;}});
     document.querySelectorAll('[data-navlink]').forEach(l=>{const on=l.getAttribute('data-navlink')===active;l.style.color=on?'#F1EEE7':'#9A9A96';const ink=l.querySelector('[data-ink]');if(ink)ink.style.transform=on?'scaleX(1)':'scaleX(0)';});
     document.querySelectorAll('[data-rail]').forEach(d=>{const on=d.getAttribute('data-rail')===active;d.style.background=on?'#C87545':'transparent';d.style.borderColor=on?'#C87545':'#4a4c4e';d.style.transform=on?'scale(1.4)':'scale(1)';});
@@ -641,9 +661,10 @@ class Component extends DCLogic {
     const labs=this.labData.map((m,i)=>({...m,active:s.labActive===i,sign:s.labActive===i?'–':'+',style:s.labActive===i?'grid-column:span 2;border-color:'+m.accent+';background:#1D1F21':(s.labActive!==null?'opacity:.72':''),onToggle:()=>this.setState({labActive:s.labActive===i?null:i})}));
     const future=this.future.map(f=>({...f,style:f.feature?'border-color:#6E9FB5;background:#161719':(f.tag==='?'?'border-style:dashed':'')}));
 
-    const certs=this.certs.map((c,i)=>({...c,hasImg:!!c.img,imgPending:false,hasMeta:!!(c.date||c.status),statusStyle:c.status?'':'display:none',hasDesc:!!c.desc,hasUrl:/^https:\/\//.test(c.url||''),alt:c.alt||('Certificate: '+c.name),viewLabel:'View certificate: '+c.name,onView:()=>this.setState({certOpen:i})}));
+    const certs=this.certs.map((c,i)=>({...c,hasImg:!!c.img,imgPending:!c.img,hasMeta:!!(c.date||c.status),statusStyle:c.status?'':'display:none',hasDesc:!!c.desc,hasUrl:/^https:\/\//.test(c.url||''),alt:c.alt||('Certificate: '+c.name),viewLabel:'View certificate: '+c.name+(c.issuer?', '+c.issuer:''),onView:()=>this.setState({certOpen:i,certClosing:false})}));
     const lc=s.certOpen!==null?certs[s.certOpen]:null;
-    const lb=lc?{img:lc.img,alt:lc.alt,label:lc.name+' · '+lc.issuer}:{};
+    const lb=lc?{...lc,noImg:!lc.img,hasDate:!!lc.date,hasStatus:!!lc.status,num:String(s.certOpen+1).padStart(2,'0'),
+      backdropAnim:s.certClosing?'fadeOut .17s ease forwards':'fadeIn .25s ease',panelAnim:s.certClosing?'certOut .17s ease forwards':'certIn .35s cubic-bezier(.2,.8,.2,1)'}:{};
     const academic={...this.academic,hasHighlights:this.academic.highlights.length>0};
     let cs={};
     if(s.view==='case'&&s.caseId){
@@ -659,11 +680,11 @@ class Component extends DCLogic {
       mobile:s.mobile,desktopNav:!s.mobile,navOpen:s.navOpen,mobileOpen:s.mobileOpen,
       isHome:s.view==='home',isCase:s.view==='case',
       filtered:fvals,filters,hasResults:filtered.length>0,filterEmpty:filtered.length===0,
-      chapters:this.chapters,labs,future,cs,whyItems:this.whyItems,offDesk:this.offDesk,academic,certs,lb,certView:!!lc,closeCert:()=>this.setState({certOpen:null}),openSiteSprint:()=>this.openCase('sitesprint','push'),keySiteSprint:(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.openCase('sitesprint','push');}},
+      chapters:this.chapters,labs,future,cs,whyItems:this.whyItems,offDesk:this.offDesk,academic,certs,lb,certView:!!lc,closeCert:()=>this.closeCert(),openSiteSprint:()=>this.openCase('sitesprint','push'),keySiteSprint:(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.openCase('sitesprint','push');}},
       openRadial:()=>this.setState({navOpen:true}),closeRadial:()=>this.setState({navOpen:false}),
       backdropRadial:()=>this.setState({navOpen:false}),stop:(e)=>e.stopPropagation(),
       openMobile:()=>this.setState({mobileOpen:true}),closeMobile:()=>this.setState({mobileOpen:false}),
-      goWork:()=>this.navTo('work'),goJourney:()=>this.navTo('journey'),goLab:()=>this.navTo('lab'),goNext:()=>this.navTo('next'),
+      goWork:()=>this.navTo('work'),goJourney:()=>this.navTo('journey'),goLab:()=>this.navTo('lab'),goAcademics:()=>this.navTo('credentials'),goNext:()=>this.navTo('next'),
       resetFilter:()=>this.setState({filter:'ALL'}),
       closeCase:()=>this.closeCase()
     };
