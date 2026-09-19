@@ -339,6 +339,12 @@ p{text-wrap:pretty}
         <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9A9A96;margin:16px 0 0">EXPECTED GRADUATION · <span style="color:#F1EEE7">{{ academic.graduation }}</span></p>
       </div>
       <dl style="flex:1 1 340px;min-width:0;margin:0;display:flex;flex-direction:column;gap:20px">
+        <sc-if value="{{ academic.hasFocus }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <dt style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#C87545;margin-bottom:10px">ACADEMIC FOCUS</dt>
+            <dd style="margin:0;color:#c9c7c1;font-size:15px;line-height:1.6;padding-left:14px;border-left:1px solid #292B2D">{{ academic.focus }}</dd>
+          </div>
+        </sc-if>
         <div>
           <dt style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#C87545;margin-bottom:10px">RELEVANT COURSEWORK</dt>
           <dd style="margin:0;display:flex;flex-wrap:wrap;gap:6px">
@@ -354,9 +360,47 @@ p{text-wrap:pretty}
       </dl>
     </article>
 
+    <h3 data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.22em;color:#9A9A96;margin:0 0 16px">INDEPENDENT LEARNING</h3>
+    <ul style="list-style:none;margin:0 0 64px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px">
+      <sc-for list="{{ learning }}" as="l" hint-placeholder-count="3">
+        <li data-reveal style="display:flex;flex-direction:column;gap:12px;border:1px solid #292B2D;border-radius:8px;background:#161719;padding:22px">
+          <span style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:{{ l.accent }}">{{ l.tag }}</span>
+            <sc-if value="{{ l.hasStatus }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#9A9A96;border:1px dashed #3a3c3e;border-radius:100px;padding:3px 10px">{{ l.status }}</span></sc-if>
+          </span>
+          <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;line-height:1.2;margin:0">{{ l.title }}</h4>
+          <p style="color:#c9c7c1;font-size:14px;line-height:1.55;margin:0">{{ l.body }}</p>
+          <sc-if value="{{ l.hasProject }}" hint-placeholder-val="{{ false }}"><button onClick="{{ l.onProject }}" aria-label="{{ l.projLabel }}" style="margin-top:auto;align-self:flex-start;background:none;border:none;padding:4px 0;display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#F1EEE7" style-hover="color:#C87545">{{ l.cta }} <span style="color:#C87545">→</span></button></sc-if>
+        </li>
+      </sc-for>
+    </ul>
+
     <h3 data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.22em;color:#9A9A96;margin:0 0 16px">CERTIFICATIONS</h3>
+    <ul style="list-style:none;margin:0 0 64px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px">
+      <sc-for list="{{ certsTech }}" as="k" hint-placeholder-count="2">
+        <li data-reveal style="display:flex">
+          <button onClick="{{ k.onView }}" aria-haspopup="dialog" aria-label="{{ k.viewLabel }}" style="width:100%;display:flex;flex-direction:column;text-align:left;color:#F1EEE7;padding:0;border:1px solid #292B2D;border-radius:8px;background:#161719;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s" style-hover="border-color:#3a3c3e;transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.35)">
+            <sc-if value="{{ k.hasImg }}" hint-placeholder-val="{{ true }}"><span style="display:block;width:100%;padding:14px;background:#0D0E0F;border-bottom:1px solid #292B2D"><img src="{{ k.img }}" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:190px;object-fit:contain"></span></sc-if>
+            <sc-if value="{{ k.imgPending }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="height:218px;width:100%;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #292B2D;background:repeating-linear-gradient(135deg,#C8754510 0 2px,transparent 2px 18px),#1D1F21;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#9A9A96">[CERTIFICATE IMAGE]</span></sc-if>
+            <span style="padding:22px;display:flex;flex-direction:column;gap:12px;flex:1;width:100%">
+              <sc-if value="{{ k.hasMeta }}" hint-placeholder-val="{{ true }}"><span style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#9A9A96">{{ k.date }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#6E9FB5;border:1px solid #6E9FB5;border-radius:100px;padding:3px 10px;{{ k.statusStyle }}">{{ k.status }}</span>
+              </span></sc-if>
+              <span style="display:block">
+                <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;line-height:1.2;overflow-wrap:anywhere">{{ k.name }}</span>
+                <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#C87545;margin-top:8px">{{ k.issuer }}</span>
+              </span>
+              <span style="margin-top:auto;display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#F1EEE7">VIEW CERTIFICATE <span style="color:#C87545">→</span></span>
+            </span>
+          </button>
+        </li>
+      </sc-for>
+    </ul>
+
+    <h3 data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.22em;color:#9A9A96;margin:0 0 16px">ACHIEVEMENTS</h3>
     <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px">
-      <sc-for list="{{ certs }}" as="k" hint-placeholder-count="3">
+      <sc-for list="{{ certsAch }}" as="k" hint-placeholder-count="3">
         <li data-reveal style="display:flex">
           <button onClick="{{ k.onView }}" aria-haspopup="dialog" aria-label="{{ k.viewLabel }}" style="width:100%;display:flex;flex-direction:column;text-align:left;color:#F1EEE7;padding:0;border:1px solid #292B2D;border-radius:8px;background:#161719;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s" style-hover="border-color:#3a3c3e;transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.35)">
             <sc-if value="{{ k.hasImg }}" hint-placeholder-val="{{ true }}"><span style="display:block;width:100%;padding:14px;background:#0D0E0F;border-bottom:1px solid #292B2D"><img src="{{ k.img }}" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:190px;object-fit:contain"></span></sc-if>
@@ -530,17 +574,25 @@ class Component extends DCLogic {
       program:'American Diploma',
       graduation:'2028',
       coursework:['MATHEMATICS','COMPUTER SCIENCE'],
+      focus:"Building a base in mathematics and computer science, and testing it on real projects. That's the groundwork I'm taking into mechanical engineering.",
       highlights:[]  // add one-line highlights here; [] hides the block
     };
     // Any field left '' is hidden. desc: 1-2 sentences on what it covered. img: 'img/certs/name.webp'. url: https:// verification link.
+    // group: 'tech' shows under CERTIFICATIONS, 'achievement' under ACHIEVEMENTS.
     this.certs=[
-      {name:'MATLAB Onramp',issuer:'MathWorks',date:'7 August 2026',status:'Completed',desc:'An introductory course covering the fundamentals of MATLAB, including the interface, variables, arrays, calculations, and basic programming concepts.',img:'img/certs/matlab-onramp.webp',alt:'MathWorks course completion certificate for MATLAB Onramp, dated 7 August 2026',url:'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=8075e126-67c8-45df-9304-9c61654a152e'},
-      {name:'Python',issuer:'Kaggle Learn',date:'8 August 2026',status:'Completed',desc:'A hands-on introduction to Python covering core programming concepts, data types, functions, conditional logic, and working with data.',img:'img/certs/kaggle-python.webp',alt:'Kaggle certificate of completion for the Python course, dated 8 August 2026',url:'https://www.kaggle.com/learn/certification/malekelkattan/python'},
-      {name:'Kickboxing Green Belt',issuer:'Egyptian Kickboxing Federation',date:'18 July 2026',status:'Grade A',desc:'Passed the federation\'s kickboxing skills test for the green belt, training with Mohamed Reda Boxing Academy in Cairo.',img:'img/certs/kickboxing-green-belt.webp',alt:'Egyptian Kickboxing Federation green belt diploma, grade A, dated 18 July 2026',url:''},
-      {name:'Kickboxing Orange Belt',issuer:'Egyptian Kickboxing Federation',date:'18 July 2026',status:'Grade A',desc:'Passed the federation\'s kickboxing skills test for the orange belt, training with Mohamed Reda Boxing Academy in Cairo.',img:'img/certs/kickboxing-orange-belt.webp',alt:'Egyptian Kickboxing Federation orange belt diploma, grade A, dated 18 July 2026',url:''},
-      {name:'Kickboxing Yellow Belt',issuer:'Egyptian Kickboxing Federation',date:'18 July 2026',status:'Grade A',desc:'Passed the federation\'s kickboxing skills test for the yellow belt, training with Mohamed Reda Boxing Academy in Cairo.',img:'img/certs/kickboxing-yellow-belt.webp',alt:'Egyptian Kickboxing Federation yellow belt diploma, grade A, dated 18 July 2026',url:''},
-      {name:'Best Bloc Leader',issuer:'GUCMUN Junior Ambassadors Program',date:'2026',status:'Awarded',desc:'Awarded for leading Bloc A while representing the United States in the Security Council at German University in Cairo MUN.',img:'img/certs/mun-best-bloc-leader.webp',alt:'GUCMUN Junior Ambassadors Program certificate of Best Bloc Leader awarded to Malek Mohamed',url:''},
-      {name:'Security Council Participation',issuer:'GUCMUN Junior Ambassadors Program',date:'2026',status:'Participated',desc:'Represented the United States in the Security Council at German University in Cairo MUN.',img:'img/certs/mun-participation.webp',alt:'GUCMUN Junior Ambassadors Program certificate of participation in the Security Council awarded to Malek Fahmy',url:''}
+      {group:'tech',name:'MATLAB Onramp',issuer:'MathWorks',date:'7 August 2026',status:'Completed',desc:'An introductory course covering the fundamentals of MATLAB, including the interface, variables, arrays, calculations, and basic programming concepts.',img:'img/certs/matlab-onramp.webp',alt:'MathWorks course completion certificate for MATLAB Onramp, dated 7 August 2026',url:'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=8075e126-67c8-45df-9304-9c61654a152e'},
+      {group:'tech',name:'Python',issuer:'Kaggle Learn',date:'8 August 2026',status:'Completed',desc:'A hands-on introduction to Python covering core programming concepts, data types, functions, conditional logic, and working with data.',img:'img/certs/kaggle-python.webp',alt:'Kaggle certificate of completion for the Python course, dated 8 August 2026',url:'https://www.kaggle.com/learn/certification/malekelkattan/python'},
+      {group:'achievement',name:'Kickboxing Green Belt',issuer:'Egyptian Kickboxing Federation',date:'18 July 2026',status:'Grade A',desc:'Passed the federation\'s kickboxing skills test for the green belt, training with Mohamed Reda Boxing Academy in Cairo.',img:'img/certs/kickboxing-green-belt.webp',alt:'Egyptian Kickboxing Federation green belt diploma, grade A, dated 18 July 2026',url:''},
+      {group:'achievement',name:'Kickboxing Orange Belt',issuer:'Egyptian Kickboxing Federation',date:'18 July 2026',status:'Grade A',desc:'Passed the federation\'s kickboxing skills test for the orange belt, training with Mohamed Reda Boxing Academy in Cairo.',img:'img/certs/kickboxing-orange-belt.webp',alt:'Egyptian Kickboxing Federation orange belt diploma, grade A, dated 18 July 2026',url:''},
+      {group:'achievement',name:'Kickboxing Yellow Belt',issuer:'Egyptian Kickboxing Federation',date:'18 July 2026',status:'Grade A',desc:'Passed the federation\'s kickboxing skills test for the yellow belt, training with Mohamed Reda Boxing Academy in Cairo.',img:'img/certs/kickboxing-yellow-belt.webp',alt:'Egyptian Kickboxing Federation yellow belt diploma, grade A, dated 18 July 2026',url:''},
+      {group:'achievement',name:'Best Bloc Leader',issuer:'GUCMUN Junior Ambassadors Program',date:'2026',status:'Awarded',desc:'Awarded for leading Bloc A while representing the United States in the Security Council at German University in Cairo MUN.',img:'img/certs/mun-best-bloc-leader.webp',alt:'GUCMUN Junior Ambassadors Program certificate of Best Bloc Leader awarded to Malek Mohamed',url:''},
+      {group:'achievement',name:'Security Council Participation',issuer:'GUCMUN Junior Ambassadors Program',date:'2026',status:'Participated',desc:'Represented the United States in the Security Council at German University in Cairo MUN.',img:'img/certs/mun-participation.webp',alt:'GUCMUN Junior Ambassadors Program certificate of participation in the Security Council awarded to Malek Fahmy',url:''}
+    ];
+    // INDEPENDENT LEARNING: only things actually built or being learned. project: case-study id (optional).
+    this.learning=[
+      {tag:'PYTHON · DATA',accent:'#6E9FB5',status:'',title:'Python & Data Analysis',body:'Applied Python, pandas and Matplotlib to real Formula 1 results in the F1 Data Project.',project:'f1',cta:'F1 DATA PROJECT'},
+      {tag:'SOFTWARE',accent:'#C87545',status:'',title:'Programming & Software',body:'Building working apps and systems on my own, from Life OS and InGen Archive to client sites through SiteSprint.',project:'',cta:''},
+      {tag:'CAD',accent:'#C87545',status:'IN PROGRESS',title:'CAD & Engineering Design',body:'Currently learning CAD, my first step toward designing mechanical parts.',project:'',cta:''}
     ];
     this.offDesk=[
       {tag:'KICKBOXING',icon:'M8 21h8 M12 17v4 M7 4h10v5a5 5 0 0 1-10 0z M7 6H4a3 3 0 0 0 3 4 M17 6h3a3 3 0 0 1-3 4',accent:'#C87545',title:'Egypt Open Kickboxing Championship — 2026',body:'I competed in the Egypt Open Kickboxing Championship, a national-level competition organized by the Egyptian Kickboxing Federation. In the competition, I won a match against an older and heavier opponent.'},
@@ -670,7 +722,9 @@ class Component extends DCLogic {
     const lc=s.certOpen!==null?certs[s.certOpen]:null;
     const lb=lc?{...lc,noImg:!lc.img,hasDate:!!lc.date,hasStatus:!!lc.status,num:String(s.certOpen+1).padStart(2,'0'),
       backdropAnim:s.certClosing?'fadeOut .17s ease forwards':'fadeIn .25s ease',panelAnim:s.certClosing?'certOut .17s ease forwards':'certIn .35s cubic-bezier(.2,.8,.2,1)'}:{};
-    const academic={...this.academic,hasHighlights:this.academic.highlights.length>0};
+    const academic={...this.academic,hasHighlights:this.academic.highlights.length>0,hasFocus:!!this.academic.focus};
+    const certsTech=certs.filter(c=>c.group==='tech'),certsAch=certs.filter(c=>c.group!=='tech');
+    const learning=this.learning.map(l=>({...l,hasStatus:!!l.status,hasProject:!!l.project,projLabel:'Open case study: '+l.cta,onProject:()=>this.openCase(l.project,'push')}));
     let cs={};
     if(s.view==='case'&&s.caseId){
       const p=this.projects.find(x=>x.id===s.caseId);const c=this.caseContent[s.caseId];
@@ -685,7 +739,7 @@ class Component extends DCLogic {
       mobile:s.mobile,desktopNav:!s.mobile,navOpen:s.navOpen,mobileOpen:s.mobileOpen,
       isHome:s.view==='home',isCase:s.view==='case',
       filtered:fvals,filters,hasResults:filtered.length>0,filterEmpty:filtered.length===0,
-      chapters:this.chapters,labs,future,cs,whyItems:this.whyItems,offDesk:this.offDesk,academic,certs,lb,certView:!!lc,closeCert:()=>this.closeCert(),openSiteSprint:()=>this.openCase('sitesprint','push'),keySiteSprint:(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.openCase('sitesprint','push');}},
+      chapters:this.chapters,labs,future,cs,whyItems:this.whyItems,offDesk:this.offDesk,academic,certs,certsTech,certsAch,learning,lb,certView:!!lc,closeCert:()=>this.closeCert(),openSiteSprint:()=>this.openCase('sitesprint','push'),keySiteSprint:(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.openCase('sitesprint','push');}},
       openRadial:()=>this.setState({navOpen:true}),closeRadial:()=>this.setState({navOpen:false}),
       backdropRadial:()=>this.setState({navOpen:false}),stop:(e)=>e.stopPropagation(),
       openMobile:()=>this.setState({mobileOpen:true}),closeMobile:()=>this.setState({mobileOpen:false}),
